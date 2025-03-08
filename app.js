@@ -1,23 +1,19 @@
+const path = require('path');
+
 const express = require('express');
 const bodyParser = require('body-parser');
 
 const app = express();
 
+const adminRoutes = require('./routes/admin');
+const shopRoutes = require('./routes/shop');
+
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: true}))
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(express.static(path.join(__dirname, 'public')));
 
-app.get('/', (req, res, next) => {
-    res.send("<h1>Hello from expressJS!</h1>");
-});
-
-app.get('/add-product', (req, res, next) => {
-    res.send("<form action='/add-product' method='POST'><input type='text' name='title'><button type='submit'>Add me</button></input></form>")
-});
-
-app.post('/add-product', (req, res, next) => {
-    console.log("Value at line 17: ", req.body);
-    res.redirect('/');
-});
+app.use('/admin', adminRoutes);
+app.use(shopRoutes);
 
 app.use((req, res, next) => {
     res.status(404).send("<h1>Page not found!</h1>");
