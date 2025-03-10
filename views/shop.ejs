@@ -5,7 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Add Product</title>
+    <title>
+        <%= pageTitle %>
+    </title>
     <link rel="stylesheet" href="/css/main.css">
 </head>
 
@@ -21,7 +23,18 @@
 
     <main>
         <h1>My Products</h1>
-        <p>List of all the products...</p>
+        <div>
+            <% if (prods.length > 0) { %>
+                <ul>
+                    <% for (let product in prods) { %>
+                        <li>
+                            <%= product %>
+                        </li>
+                        <% } }else { %>
+                            <p>No products found</p>
+                            <% } %>
+                </ul>
+        </div>
     </main>
 </body>
 
